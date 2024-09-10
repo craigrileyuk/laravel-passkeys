@@ -50,11 +50,11 @@
 
 <script setup>
 import { useRoute } from "@adminui/inertia-routes";
-import InputError from "@/Components/InputError.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
-import DangerButton from "@/Components/DangerButton.vue";
+import InputError from "@/components/InputError.vue";
+import InputLabel from "@/components/InputLabel.vue";
+import PrimaryButton from "@/components/PrimaryButton.vue";
+import TextInput from "@/components/TextInput.vue";
+import DangerButton from "@/components/DangerButton.vue";
 import { formatTimeAgo } from "@vueuse/core";
 import { useForm, router } from "@inertiajs/vue3";
 import { usePasskeys } from "composables/usePasskeys";

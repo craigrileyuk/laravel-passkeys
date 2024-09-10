@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()
-            ->has(Passkey::factory(3))
-            ->create();
+            ->create([
+                'email' => 'c.riley@evomark.co.uk',
+                'name' => 'Craig Riley'
+            ]);
     }
 }

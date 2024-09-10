@@ -18,9 +18,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
-
-        dd($request->user()->getAuthIdentifier());
-        return Inertia::render('Profile/Edit', [
+        return Inertia::render('profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
             'passkeys' => fn() => Auth::user()->passkeys->map(fn($item) => collect($item)->except(['credential_id', 'data']))->toArray()

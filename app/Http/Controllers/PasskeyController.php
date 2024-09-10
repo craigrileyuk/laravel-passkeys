@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Passkey;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -75,6 +76,8 @@ class PasskeyController extends Controller
             ]);
         }
 
+
+        $passkey->data->userHandle = base64_encode($passkey->data->userHandle);
         $passkey->update(['data' => $publicKeyCredentialSource]);
 
         Auth::loginUsingId($passkey->user_id);
@@ -92,6 +95,9 @@ class PasskeyController extends Controller
             'name' => ['required', 'string', 'max:255']
         ]);
 
+        /** @var User $user */
+        $user = $request->user();
+
         $options = new PublicKeyCredentialCreationOptions(
             rp: new PublicKeyCredentialRpEntity(
                 name: config('app.name'),
@@ -99,8 +105,8 @@ class PasskeyController extends Controller
             ),
             challenge: Str::random(),
             user: new PublicKeyCredentialUserEntity(
-                name: $request->user()->email,
-                id: base64_encode($request->user()->id),
+                name: $user->email,
+                id: \ParagonIE\ConstantTime\Base64::encode((string) $user->getAuthIdentifier()),
                 displayName: $request->user()->name
             ),
             authenticatorSelection: new AuthenticatorSelectionCriteria(
